@@ -1,0 +1,128 @@
+<!DOCTYPE html><html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age Calculator</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            margin: 50px;
+            background: linear-gradient(to right, #141e30, #243b55);
+            color: white;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+            display: inline-block;
+        }
+        h1 {
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+        p.description {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        input {
+            padding: 12px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            width: 80%;
+            max-width: 300px;
+            text-align: center;
+        }
+        button {
+            padding: 12px 25px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            background: #00c6ff;
+            color: white;
+            border-radius: 5px;
+            transition: 0.3s;
+            margin-top: 15px;
+        }
+        button:hover {
+            background: #0072ff;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 22px;
+            font-weight: bold;
+        }
+        .marquee {
+            width: 100%;
+            background: #ffcc00;
+            color: black;
+            padding: 10px 0;
+            font-size: 18px;
+            font-weight: bold;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Premium Age Calculator</h1>
+        <p class="description">अगर आपको कोई भी दिक्कत हो तो संपर्क करें: <strong>8273441638</strong><br>
+        या फिर <strong>SHOAIB CSC CENTRE</strong> पर आकर सहायता प्राप्त करें।</p>
+        <p>Enter your date of birth and find out your exact age.</p>
+        <input type="date" id="dob">
+        <br>
+        <button onclick="calculateAge()">Calculate Age</button>
+        <p id="result"></p>
+    </div><div class="marquee">
+    <marquee behavior="scroll" direction="left">Welcome to Shoaib CSC Center | Contact: 8273441638</marquee>
+</div>
+
+<script>
+    function calculateAge() {
+        let dob = document.getElementById('dob').value;
+        if (dob === "") {
+            document.getElementById('result').innerText = "Please enter your date of birth.";
+            return;
+        }
+        let dobDate = new Date(dob);
+        let today = new Date();
+        let ageYears = today.getFullYear() - dobDate.getFullYear();
+        let monthDiff = today.getMonth() - dobDate.getMonth();
+        let dayDiff = today.getDate() - dobDate.getDate();
+        
+        if (dayDiff < 0) {
+            monthDiff--;
+            let prevMonth = new Date(today.getFullYear(), today.getMonth(), 0);
+            dayDiff += prevMonth.getDate();
+        }
+        
+        if (monthDiff < 0) {
+            ageYears--;
+            monthDiff += 12;
+        }
+        
+        let ageMilliseconds = today - dobDate;
+        let ageDays = Math.floor(ageMilliseconds / (1000 * 60 * 60 * 24));
+        let ageHours = Math.floor(ageMilliseconds / (1000 * 60 * 60));
+        let ageMinutes = Math.floor(ageMilliseconds / (1000 * 60));
+        let ageSeconds = Math.floor(ageMilliseconds / 1000);
+        
+        document.getElementById('result').innerHTML = `
+            Your age is: <strong>${ageYears} years, ${monthDiff} months, ${dayDiff} days</strong><br>
+            That means you have lived:<br>
+            <strong>${ageDays}</strong> days<br>
+            <strong>${ageHours}</strong> hours<br>
+            <strong>${ageMinutes}</strong> minutes<br>
+            <strong>${ageSeconds}</strong> seconds
+        `;
+    }
+</script>
+
+</body>
+</html>
